@@ -1,0 +1,11 @@
+#Canny Edge Detection
+import cv2
+
+img = cv2.imread('image/lena.jpg')
+gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+edges = cv2.Canny(gray,70,130,L2gradient = True)
+cv2.imshow('Original lena',img)
+cv2.imshow('Edges Lena',edges)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+cv2.waitKey(1) #for mac
