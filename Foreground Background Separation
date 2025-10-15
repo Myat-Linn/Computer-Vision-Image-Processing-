@@ -1,0 +1,17 @@
+#Seperating moving objects against static background
+
+import cv2
+
+vid = cv2.VideoCapture('image/feature/move.avi')
+fgbg = cv2.createBackgroundSubtractorMOG2()
+
+while True:
+    ret,frame = vid.read()
+    fg = fgbg.apply(frame)
+    cv2.imshow('BackGround Seperator',fg)
+    k = cv2.waitKey(5)
+    if k == 27:
+        break
+        
+vid.release()
+cv2.destroyAllWindows()
