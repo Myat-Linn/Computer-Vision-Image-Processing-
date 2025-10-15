@@ -1,0 +1,23 @@
+#Detecting Green in the video
+
+import numpy as np 
+import cv2
+
+vid = cv2.VideoCapture('image/feature/move.avi')
+
+while True:
+    ret,frame = vid.read()
+    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+    lower_green = np.array([34,40,40])
+    higher_green = np.array([85,255,255])
+    mask = cv2.inRange(hsv,lower_green,higher_green)
+    res = cv2.bitwise_and(frame,frame,mask = mask)
+    cv2.imshow('Original',frame)
+    cv2.imshow('Mask',mask)
+    cv2.imshow('Detect Green',res)
+    k = cv2.waitKey(5)
+    if k == 27:
+        break
+        
+vid.release()
+cv2.destroyAllWindows()
