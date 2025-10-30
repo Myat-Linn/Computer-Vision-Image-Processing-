@@ -1,0 +1,25 @@
+#Detecting Coins Using Template Method
+
+import cv2 
+import numpy as np
+
+img = cv2.imread('image/feature/Mario.png')
+img_gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+
+template = img[193:222,140:163]
+template = cv2.cvtColor(template,cv2.COLOR_BGR2GRAY)
+w,h = template.shape[::-1]
+
+res = cv2.matchTemplate(img_gray,template,cv2.TM_CCOEFF_NORMED)
+thres = 0.9
+
+pos = np.where(res >= thres)
+
+for pt in zip(*pos[::-1]):
+    cv2.rectangle(img,pt,(pt[0]+w,pt[1]+h),(0,255),1)
+
+cv2.imshow('Coins Detected',img)
+cv2.imshow('Template',template)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+cv2.waitKey(1)
